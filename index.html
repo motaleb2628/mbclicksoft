@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mbclicksoft | Digital Alchemy & AI Automation</title>
     
+    <!-- FAVICON (Restored Exact M Logo) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%237C3AED' d='M15 20 L40 20 L50 50 L60 20 L85 20 L85 80 L65 80 L65 50 L50 85 L35 50 L35 80 L15 80 Z'/></svg>">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,9 +35,9 @@
                     colors: {
                         void: '#020202',
                         surface: '#0A0A0A',
-                        neon: '#CCFF00',   // Acid Green
-                        purple: '#7C3AED', // Deep Violet
-                        glass: 'rgba(255, 255, 255, 0.03)',
+                        neon: '#CCFF00',   
+                        purple: '#7C3AED', 
+                        cyanBrand: '#22d3ee',
                     },
                     backgroundImage: {
                         'grid-pattern': "url('https://grainy-gradients.vercel.app/noise.svg')",
@@ -43,20 +46,15 @@
                         'shimmer': 'shimmer 2.5s infinite linear',
                         'text-shine': 'textShine 3s ease-in-out infinite alternate',
                         'glow-pulse': 'glowPulse 3s infinite',
+                        'marquee': 'marquee 40s linear infinite',
+                        'marquee-reverse': 'marqueeReverse 40s linear infinite',
                     },
                     keyframes: {
-                        shimmer: {
-                            '0%': { transform: 'translateX(-100%)' },
-                            '100%': { transform: 'translateX(100%)' }
-                        },
-                        textShine: {
-                            '0%': { opacity: '0.8', textShadow: '0 0 10px rgba(255,255,255,0)' },
-                            '100%': { opacity: '1', textShadow: '0 0 30px rgba(204, 255, 0, 0.6)' }
-                        },
-                        glowPulse: {
-                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-                            '50%': { opacity: '0.8', transform: 'scale(1.1)' }
-                        }
+                        shimmer: { '0%': { transform: 'translateX(-100%)' }, '100%': { transform: 'translateX(100%)' } },
+                        textShine: { '0%': { opacity: '0.8', textShadow: '0 0 10px rgba(255,255,255,0)' }, '100%': { opacity: '1', textShadow: '0 0 30px rgba(204, 255, 0, 0.6)' } },
+                        glowPulse: { '0%, 100%': { opacity: '0.4', transform: 'scale(1)' }, '50%': { opacity: '0.8', transform: 'scale(1.1)' } },
+                        marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+                        marqueeReverse: { '0%': { transform: 'translateX(-50%)' }, '100%': { transform: 'translateX(0)' } }
                     }
                 }
             }
@@ -94,7 +92,7 @@
         /* Video Container */
         .video-container iframe { width: 100%; height: 100%; }
 
-        /* Gradient Text Animation */
+        /* Shiny Text */
         .shiny-text {
             background: linear-gradient(to right, #ffffff 20%, #CCFF00 40%, #CCFF00 60%, #ffffff 80%);
             background-size: 200% auto;
@@ -104,30 +102,59 @@
             -webkit-text-fill-color: transparent;
             animation: shine 3s linear infinite;
         }
-        @keyframes shine {
-            to { background-position: 200% center; }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* Form Input Styles */
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 0.4rem;
+            padding: 0.5rem 0.7rem; 
+            width: 100%;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .form-input:focus {
+            outline: none; border-color: #7C3AED; box-shadow: 0 0 0 1px #7C3AED; background-color: rgba(255, 255, 255, 0.08);
+        }
+        .form-label {
+            display: block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; margin-bottom: 0.2rem; letter-spacing: 0.05em;
+        }
+        select.form-input option { background-color: #020202; color: white; }
+
+        /* Marquee Pause on Hover */
+        .hover\:pause:hover {
+            animation-play-state: paused;
         }
     </style>
 </head>
 <body class="antialiased relative">
 
-    <!-- ==================== TOP BAR ==================== -->
-    <div class="fixed top-0 left-0 w-full h-10 bg-[#0f0f12] z-[60] flex items-center justify-center px-4 cursor-pointer overflow-hidden border-b border-white/5" onclick="openModal('ebookModal')">
-        <div class="absolute inset-0 z-0">
-            <div class="w-1/2 h-full bg-gradient-to-r from-transparent via-purple/20 to-transparent animate-shimmer skew-x-12"></div>
+    <!-- TOP BAR -->
+    <div class="fixed top-0 left-0 w-full h-11 bg-gradient-to-r from-[#0f0f12] via-[#1a1a2e] to-[#0f0f12] z-[60] flex items-center justify-center px-4 cursor-pointer overflow-hidden border-b border-white/10 shadow-lg" onclick="openModal('ebookModal')">
+        <div class="absolute inset-0 z-0"><div class="w-1/3 h-full bg-white/5 skew-x-12 animate-shimmer blur-md"></div></div>
+        <div class="relative z-10 flex items-center gap-3">
+            <span class="bg-purple-600 text-white text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded shadow-[0_0_10px_#7c3aed]">FREE GUIDE</span>
+            <p class="text-[11px] md:text-xs font-bold tracking-wide text-gray-200">Agency Automation 2025: <span class="text-neon border-b border-neon/50">Download Now</span></p>
+            <i data-lucide="arrow-right" class="w-3 h-3 text-neon animate-pulse"></i>
         </div>
-        <p class="relative z-10 text-[10px] md:text-xs font-bold tracking-[0.2em] text-gray-200 uppercase flex items-center gap-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></span>
-            FREE RESOURCE: "AGENCY AUTOMATION 2025" — DOWNLOAD NOW
-        </p>
     </div>
 
-    <!-- ==================== NAVBAR ==================== -->
-    <nav class="fixed top-10 left-0 w-full z-50 bg-void/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+    <!-- NAVBAR -->
+    <nav class="fixed top-11 left-0 w-full z-50 bg-void/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" onclick="showHome()" class="text-2xl font-display font-black tracking-tighter text-white group flex items-center gap-1">
-                mb<span class="text-neon group-hover:text-purple transition-colors">clicksoft</span>
-                <span class="w-2 h-2 rounded-full bg-white mt-2"></span>
+            
+            <!-- LOGO (Restored M Shape) -->
+            <a href="#" onclick="showHome()" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 bg-white/5 border border-purple-500/40 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(124,58,237,0.4)] backdrop-blur-md group-hover:border-neon transition-all">
+                    <svg viewBox="0 0 100 100" class="w-5 h-5" style="shape-rendering: geometricPrecision;">
+                        <path d="M15 20 L40 20 L50 50 L60 20 L85 20 L85 80 L65 80 L65 50 L50 85 L35 50 L35 80 L15 80 Z" fill="#7C3AED" stroke="none"/>
+                    </svg>
+                </div>
+                <div class="text-xl font-display font-black tracking-tighter text-white">
+                    mb<span class="text-neon group-hover:text-purple transition-colors">clicksoft</span>
+                </div>
             </a>
 
             <div class="hidden lg:flex items-center gap-8">
@@ -135,71 +162,48 @@
                 <a href="#case-studies" class="text-sm font-medium text-gray-400 hover:text-white hover:text-neon transition-colors">Case Studies</a>
                 <a href="#about" class="text-sm font-medium text-gray-400 hover:text-white hover:text-neon transition-colors">About</a>
                 <a href="#blog" class="text-sm font-medium text-gray-400 hover:text-white hover:text-neon transition-colors">Insights</a>
-                <button onclick="openModal('packageModal')" class="text-xs font-bold bg-white/10 px-3 py-1 rounded border border-white/20 hover:border-neon hover:text-neon transition-all">
-                    📦 PACKAGES
-                </button>
+                <button onclick="openModal('packageModal')" class="text-xs font-bold bg-white/10 px-3 py-1 rounded border border-white/20 hover:border-neon hover:text-neon transition-all">📦 PACKAGES</button>
             </div>
 
             <div class="flex items-center gap-4">
-                <button onclick="openContact()" class="hidden md:block px-6 py-2 bg-neon text-black font-bold text-sm skew-x-[-10deg] hover:bg-white transition-colors">
-                    <span class="skew-x-[10deg] inline-block">GET QUOTE</span>
-                </button>
-                <button class="lg:hidden text-white" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
-                    <i data-lucide="menu"></i>
-                </button>
+                <button onclick="openContact()" class="hidden md:block px-6 py-2 bg-neon text-black font-bold text-sm skew-x-[-10deg] hover:bg-white transition-colors"><span class="skew-x-[10deg] inline-block">GET QUOTE</span></button>
+                <button class="lg:hidden text-white" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')"><i data-lucide="menu"></i></button>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden lg:hidden bg-surface p-6 absolute w-full border-b border-gray-800">
             <div class="flex flex-col gap-4">
                 <a href="#services">Services</a>
                 <a href="#case-studies">Case Studies</a>
+                <a href="#blog">Insights</a>
                 <button onclick="openModal('packageModal')" class="text-neon text-left font-bold">View Packages</button>
             </div>
         </div>
     </nav>
 
-    <!-- ==================== MAIN CONTENT (SPA) ==================== -->
+    <!-- MAIN CONTENT -->
     <main id="main-view" class="page-view pt-20">
 
-        <!-- UPDATED HERO SECTION -->
+        <!-- HERO -->
         <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden bg-void">
             <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-            <!-- Animated Background Glow -->
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-purple/20 to-neon/10 blur-[100px] rounded-full pointer-events-none animate-glow-pulse"></div>
-
             <div class="relative z-10 max-w-6xl mx-auto flex flex-col items-center" data-aos="fade-up">
-                <!-- Badge -->
-                <div class="mb-8 border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 rounded-full">
-                    <span class="text-[10px] md:text-xs font-mono text-neon font-bold tracking-[0.2em] uppercase">
-                        Agency 2.0 Has Arrived
-                    </span>
-                </div>
-                
-                <!-- Shortened Typography with Shiny Effect -->
-                <h1 class="text-6xl md:text-8xl lg:text-[7rem] font-display font-black leading-[0.9] tracking-tighter mb-10 uppercase">
-                    <span class="shiny-text">DIGITAL</span><br>
-                    <span class="text-white animate-text-shine">CORE</span>
-                </h1>
-                
-                <!-- Subtitle -->
-                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                    We build lightning-fast websites, run conversion-focused marketing campaigns, and automate your operations with powerful AI agents. Stop competing. Start dominating.
-                </p>
-
-                <!-- Buttons -->
+                <div class="mb-8 border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 rounded-full"><span class="text-[10px] md:text-xs font-mono text-neon font-bold tracking-[0.2em] uppercase">Agency 2.0 Has Arrived</span></div>
+                <h1 class="text-6xl md:text-8xl lg:text-[7rem] font-display font-black leading-[0.9] tracking-tighter mb-10 uppercase"><span class="shiny-text">DIGITAL</span><br><span class="text-white animate-text-shine">CORE</span></h1>
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">We build lightning-fast websites, run conversion-focused marketing campaigns, and automate your operations with powerful AI agents.</p>
                 <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
-                    <!-- Launch Project Button (Transparent Hover) -->
-                    <button onclick="openContact()" class="group relative px-10 py-4 bg-neon text-black font-bold text-lg rounded-lg transition-all duration-300 border border-neon hover:bg-transparent hover:text-white">
-                        Launch Project
-                    </button>
-                    
-                    <button onclick="document.getElementById('video-section').scrollIntoView()" class="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
-                        <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon group-hover:scale-110 transition-all">
-                            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-                        </div>
-                        <span class="text-sm font-bold tracking-widest uppercase">Watch Vision</span>
-                    </button>
+                    <button onclick="openContact()" class="group relative px-10 py-4 bg-neon text-black font-bold text-lg rounded-lg transition-all duration-300 border border-neon hover:bg-transparent hover:text-white">Launch Project</button>
+                    <button onclick="document.getElementById('video-section').scrollIntoView()" class="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"><div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon group-hover:scale-110 transition-all"><i data-lucide="play" class="w-4 h-4 fill-current"></i></div><span class="text-sm font-bold tracking-widest uppercase">Watch Vision</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUSTED BY -->
+        <section class="py-12 border-t border-b border-white/5 bg-[#050507] overflow-hidden">
+            <div class="relative flex overflow-x-hidden group">
+                <div class="animate-marquee whitespace-nowrap flex items-center gap-20 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                    <span class="text-2xl font-display font-bold mx-4">GOOGLE PARTNER</span><span class="text-2xl font-display font-bold mx-4">META ADS</span><span class="text-2xl font-display font-bold mx-4">SHOPIFY EXPERTS</span><span class="text-2xl font-display font-bold mx-4">WORDPRESS VIP</span><span class="text-2xl font-display font-bold mx-4">WEBFLOW</span><span class="text-2xl font-display font-bold mx-4">OPENAI</span>
+                    <span class="text-2xl font-display font-bold mx-4">GOOGLE PARTNER</span><span class="text-2xl font-display font-bold mx-4">META ADS</span><span class="text-2xl font-display font-bold mx-4">SHOPIFY EXPERTS</span><span class="text-2xl font-display font-bold mx-4">WORDPRESS VIP</span><span class="text-2xl font-display font-bold mx-4">WEBFLOW</span><span class="text-2xl font-display font-bold mx-4">OPENAI</span>
                 </div>
             </div>
         </section>
@@ -209,31 +213,17 @@
             <div class="container mx-auto px-6">
                 <div class="flex flex-col lg:flex-row items-center gap-16">
                     <div class="lg:w-1/3" data-aos="fade-right">
-                        <h2 class="text-5xl md:text-6xl font-display font-bold mb-6 text-white leading-tight">
-                            Strategic <br>
-                            <span class="text-neon">Vision.</span>
-                        </h2>
-                        <p class="text-gray-400 mb-8 leading-relaxed text-lg">
-                            "We don't believe in guesswork. At mbclicksoft, every pixel is placed with purpose, and every campaign is backed by data. We are re-engineering how businesses scale in the age of Artificial Intelligence."
-                        </p>
-                        <div class="flex items-center gap-4 pt-4 border-t border-white/10">
-                            <span class="font-mono text-xs text-neon tracking-widest font-bold">MBCLICKSOFT TEAM</span>
-                        </div>
+                        <h2 class="text-5xl md:text-6xl font-display font-bold mb-6 text-white leading-tight">Strategic <br><span class="text-neon">Vision.</span></h2>
+                        <p class="text-gray-400 mb-8 leading-relaxed text-lg">"We don't believe in guesswork. At mbclicksoft, every pixel is placed with purpose, and every campaign is backed by data. We are re-engineering how businesses scale in the age of Artificial Intelligence."</p>
+                        <div class="flex items-center gap-4 pt-4 border-t border-white/10"><span class="font-mono text-xs text-neon tracking-widest font-bold">MBCLICKSOFT TEAM</span></div>
                     </div>
-
                     <div class="lg:w-2/3 w-full" data-aos="zoom-in">
                         <div class="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group shadow-2xl bg-[#050505]" id="video-wrapper">
                             <div id="video-overlay" class="absolute inset-0 z-20 cursor-pointer" onclick="playVideo()">
                                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
                                 <div class="absolute inset-0 bg-black/40"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <div class="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform duration-300">
-                                        <i data-lucide="play" class="w-8 h-8 text-white fill-white ml-1"></i>
-                                    </div>
-                                </div>
-                                <div class="absolute bottom-8 left-8">
-                                    <span class="bg-neon text-black text-xs font-bold px-4 py-2 uppercase rounded-md">Watch Intro</span>
-                                </div>
+                                <div class="absolute inset-0 flex items-center justify-center"><div class="w-24 h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform duration-300"><i data-lucide="play" class="w-8 h-8 text-white fill-white ml-1"></i></div></div>
+                                <div class="absolute bottom-8 left-8"><span class="bg-neon text-black text-xs font-bold px-4 py-2 uppercase rounded-md">Watch Intro</span></div>
                             </div>
                             <div id="video-player" class="w-full h-full video-container"></div>
                         </div>
@@ -244,36 +234,20 @@
 
         <!-- MARKETING INTELLIGENCE -->
         <section class="py-32 bg-void relative overflow-hidden">
-            <div class="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple/10 rounded-full blur-[120px] pointer-events-none"></div>
             <div class="container mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-20 items-center">
                     <div class="relative" data-aos="fade-right">
                         <div class="grid grid-cols-2 gap-6 relative z-10">
-                            <div class="col-span-1 bg-[#0f0f12] border border-white/10 rounded-2xl p-6 shadow-2xl">
-                                <i data-lucide="target" class="w-10 h-10 text-neon mb-4"></i>
-                                <h3 class="text-xl font-bold text-white">Targeting</h3>
-                                <p class="text-xs text-gray-500 mt-1">Precision Audience 2.0</p>
-                            </div>
-                            <div class="col-span-1 bg-[#0f0f12] border border-white/10 rounded-2xl p-6 shadow-2xl flex flex-col justify-center">
-                                <i data-lucide="trending-up" class="w-8 h-8 text-purple mb-4"></i>
-                                <h3 class="text-lg font-bold text-white">Scale</h3>
-                                <p class="text-xs text-gray-500 mt-1">Viral Growth Loops</p>
-                            </div>
-                            <div class="col-span-2 bg-gradient-to-r from-purple to-[#4f46e5] rounded-2xl p-8 flex items-center justify-between shadow-[0_0_40px_rgba(124,58,237,0.3)]">
-                                <div><h3 class="text-5xl font-display font-black text-white">300%</h3><p class="text-white/80 text-sm mt-1">Average ROAS Increase</p></div>
-                                <div class="flex items-end gap-1 h-12"><div class="w-2 h-4 bg-white/30 rounded-t"></div><div class="w-2 h-6 bg-white/50 rounded-t"></div><div class="w-2 h-10 bg-white rounded-t"></div></div>
-                            </div>
+                            <div class="col-span-1 bg-[#0f0f12] border border-white/10 rounded-2xl p-6 shadow-2xl"><i data-lucide="target" class="w-10 h-10 text-neon mb-4"></i><h3 class="text-xl font-bold text-white">Targeting</h3><p class="text-xs text-gray-500 mt-1">Precision Audience 2.0</p></div>
+                            <div class="col-span-1 bg-[#0f0f12] border border-white/10 rounded-2xl p-6 shadow-2xl flex flex-col justify-center"><i data-lucide="trending-up" class="w-8 h-8 text-purple mb-4"></i><h3 class="text-lg font-bold text-white">Scale</h3><p class="text-xs text-gray-500 mt-1">Viral Growth Loops</p></div>
+                            <div class="col-span-2 bg-gradient-to-r from-purple to-[#4f46e5] rounded-2xl p-8 flex items-center justify-between shadow-[0_0_40px_rgba(124,58,237,0.3)]"><div><h3 class="text-5xl font-display font-black text-white">300%</h3><p class="text-white/80 text-sm mt-1">Average ROAS Increase</p></div><div class="flex items-end gap-1 h-12"><div class="w-2 h-4 bg-white/30 rounded-t"></div><div class="w-2 h-6 bg-white/50 rounded-t"></div><div class="w-2 h-10 bg-white rounded-t"></div></div></div>
                         </div>
                     </div>
                     <div data-aos="fade-left">
                         <div class="text-purple font-mono text-sm tracking-widest uppercase mb-4">/// Marketing Intelligence</div>
                         <h2 class="text-5xl md:text-6xl font-display font-bold leading-tight mb-8">Data Driven.<br>Human Centric.</h2>
-                        <p class="text-gray-400 text-lg leading-relaxed mb-8">Marketing is no longer just about creativity; it's about mathematics and psychology. We analyze thousands of data points to understand exactly where your customers are.</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></div><span class="text-gray-300 font-medium">Behavior-based Retargeting</span></li>
-                            <li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></div><span class="text-gray-300 font-medium">Omni-channel Presence</span></li>
-                            <li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></div><span class="text-gray-300 font-medium">Neuro-marketing Copywriting</span></li>
-                        </ul>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-8">Marketing is no longer just about creativity; it's about mathematics. We analyze thousands of data points to understand exactly where your customers are.</p>
+                        <ul class="space-y-4"><li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></div><span class="text-gray-300 font-medium">Behavior-based Retargeting</span></li><li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></div><span class="text-gray-300 font-medium">Omni-channel Presence</span></li><li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-neon shadow-[0_0_10px_#ccff00]"></div><span class="text-gray-300 font-medium">Neuro-marketing Copywriting</span></li></ul>
                     </div>
                 </div>
             </div>
@@ -287,27 +261,16 @@
                         <div class="text-neon font-mono text-sm tracking-widest uppercase mb-4">/// Business Autopilot</div>
                         <h2 class="text-5xl md:text-6xl font-display font-bold leading-tight mb-8">Work Less.<br>Earn More.</h2>
                         <p class="text-gray-400 text-lg leading-relaxed mb-10">Imagine a business that runs while you sleep. Our AI agents handle customer inquiries, book appointments, and manage inventory.</p>
-                        <div class="grid grid-cols-2 gap-8">
-                            <div><h4 class="text-white font-bold text-lg mb-2">AI Chatbots</h4><p class="text-sm text-gray-500 leading-relaxed">24/7 Customer support with human-like conversation capabilities.</p></div>
-                            <div><h4 class="text-white font-bold text-lg mb-2">Workflow Ops</h4><p class="text-sm text-gray-500 leading-relaxed">Auto-sync data between CRM, Email, and Slack instantly.</p></div>
-                        </div>
+                        <div class="grid grid-cols-2 gap-8"><div><h4 class="text-white font-bold text-lg mb-2">AI Chatbots</h4><p class="text-sm text-gray-500 leading-relaxed">24/7 Customer support with human-like conversation.</p></div><div><h4 class="text-white font-bold text-lg mb-2">Workflow Ops</h4><p class="text-sm text-gray-500 leading-relaxed">Auto-sync data between CRM, Email, and Slack.</p></div></div>
                     </div>
                     <div class="relative" data-aos="fade-left">
                         <div class="bg-void border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl relative z-10">
-                            <div class="bg-[#1a1a1e] border border-white/5 p-4 rounded-xl flex items-center justify-between mb-6">
-                                <div class="flex items-center gap-4"><div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white"><i data-lucide="user" class="w-5 h-5"></i></div><span class="text-white font-bold">New Lead</span></div><span class="text-xs text-gray-500">Just now</span>
-                            </div>
+                            <div class="bg-[#1a1a1e] border border-white/5 p-4 rounded-xl flex items-center justify-between mb-6"><div class="flex items-center gap-4"><div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white"><i data-lucide="user" class="w-5 h-5"></i></div><span class="text-white font-bold">New Lead</span></div><span class="text-xs text-gray-500">Just now</span></div>
                             <div class="flex justify-center mb-6"><i data-lucide="arrow-down" class="text-gray-600 w-6 h-6"></i></div>
-                            <div class="bg-neon/5 border border-neon p-5 rounded-xl flex items-center justify-between mb-6 shadow-[0_0_20px_rgba(204,255,0,0.1)]">
-                                <div class="flex items-center gap-4"><div class="w-10 h-10 bg-neon rounded-lg flex items-center justify-center text-black"><i data-lucide="bot" class="w-6 h-6"></i></div><span class="text-neon font-bold">AI Agent Processing</span></div><i data-lucide="loader" class="text-neon w-5 h-5 animate-spin"></i>
-                            </div>
+                            <div class="bg-neon/5 border border-neon p-5 rounded-xl flex items-center justify-between mb-6 shadow-[0_0_20px_rgba(204,255,0,0.1)]"><div class="flex items-center gap-4"><div class="w-10 h-10 bg-neon rounded-lg flex items-center justify-center text-black"><i data-lucide="bot" class="w-6 h-6"></i></div><span class="text-neon font-bold">AI Agent Processing</span></div><i data-lucide="loader" class="text-neon w-5 h-5 animate-spin"></i></div>
                             <div class="flex justify-center mb-6"><i data-lucide="arrow-down" class="text-gray-600 w-6 h-6"></i></div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-[#1a1a1e] border border-white/5 p-4 rounded-xl text-center"><span class="text-gray-400 text-sm font-medium">CRM Update</span></div>
-                                <div class="bg-[#1a1a1e] border border-white/5 p-4 rounded-xl text-center"><span class="text-gray-400 text-sm font-medium">SMS Sent</span></div>
-                            </div>
+                            <div class="grid grid-cols-2 gap-4"><div class="bg-[#1a1a1e] border border-white/5 p-4 rounded-xl text-center"><span class="text-gray-400 text-sm font-medium">CRM Update</span></div><div class="bg-[#1a1a1e] border border-white/5 p-4 rounded-xl text-center"><span class="text-gray-400 text-sm font-medium">SMS Sent</span></div></div>
                         </div>
-                        <div class="absolute inset-0 bg-neon/5 blur-3xl -z-10 rounded-3xl"></div>
                     </div>
                 </div>
             </div>
@@ -317,12 +280,8 @@
         <section id="services" class="py-32 bg-surface relative overflow-hidden">
             <div class="absolute top-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <span class="text-neon font-mono text-xs tracking-widest uppercase">Our Capabilities</span>
-                    <h2 class="text-4xl md:text-5xl font-display font-bold mt-2">Services & Solutions</h2>
-                </div>
+                <div class="text-center mb-16"><span class="text-neon font-mono text-xs tracking-widest uppercase">Our Capabilities</span><h2 class="text-4xl md:text-5xl font-display font-bold mt-2">Services & Solutions</h2></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    <!-- Same 10 Services -->
                     <div class="glass-panel p-8 rounded-2xl group"><div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 text-blue-500 group-hover:scale-110 transition-transform"><i data-lucide="share-2" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-3">1. Social Media Marketing</h3><ul class="text-xs text-gray-400 space-y-2 list-disc pl-4"><li>Content for FB, IG, TikTok & YT</li><li>Paid campaign execution</li><li>Profile management</li></ul></div>
                     <div class="glass-panel p-8 rounded-2xl group"><div class="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-6 text-green-500 group-hover:scale-110 transition-transform"><i data-lucide="globe" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-3">2. SEO & GEO</h3><ul class="text-xs text-gray-400 space-y-2 list-disc pl-4"><li>On-Page, Off-Page & Tech SEO</li><li>Google ranking improvement</li><li class="text-neon">AI-based GEO Optimization</li></ul></div>
                     <div class="glass-panel p-8 rounded-2xl group"><div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-6 text-red-500 group-hover:scale-110 transition-transform"><i data-lucide="target" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-3">3. Google Ads / SEM</h3><ul class="text-xs text-gray-400 space-y-2 list-disc pl-4"><li>Search & Display Ads</li><li>YouTube Video Ads</li><li>Retargeting campaigns</li></ul></div>
@@ -340,28 +299,21 @@
         <!-- WHY CHOOSE US -->
         <section class="py-24 bg-void relative">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-display font-bold">The <span class="text-neon">mbclicksoft</span> Edge</h2>
-                    <p class="text-gray-400 mt-2 max-w-xl mx-auto">We don't just deliver projects; we engineer outcomes.</p>
-                </div>
+                <div class="text-center mb-16"><h2 class="text-4xl font-display font-bold">The <span class="text-neon">mbclicksoft</span> Edge</h2><p class="text-gray-400 mt-2 max-w-xl mx-auto">We don't just deliver projects; we engineer outcomes.</p></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="glass-panel p-8 rounded-2xl text-center hover:border-neon transition-colors"><div class="w-14 h-14 bg-neon text-black rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="crosshair" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">ROI Obsessed</h3><p class="text-sm text-gray-400">We track every penny. If it doesn't make money, it doesn't make sense.</p></div>
-                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-purple transition-colors"><div class="w-14 h-14 bg-purple text-white rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="code-2" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">Custom Tech Stack</h3><p class="text-sm text-gray-400">No cookie-cutter templates. We code bespoke solutions tailored to your brand.</p></div>
-                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-neon transition-colors"><div class="w-14 h-14 bg-gray-800 text-neon rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="clock" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">Agile & Fast</h3><p class="text-sm text-gray-400">We work in sprints. Expect rapid deployment and continuous updates.</p></div>
-                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-purple transition-colors"><div class="w-14 h-14 bg-gray-800 text-purple rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="headphones" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">24/7 Support</h3><p class="text-sm text-gray-400">Our support team is always awake, ensuring your business never stops.</p></div>
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-purple transition-colors"><div class="w-14 h-14 bg-purple text-white rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="code-2" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">Custom Tech Stack</h3><p class="text-sm text-gray-400">No cookie-cutter templates. We code bespoke solutions.</p></div>
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-neon transition-colors"><div class="w-14 h-14 bg-gray-800 text-neon rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="clock" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">Agile & Fast</h3><p class="text-sm text-gray-400">We work in sprints. Expect rapid deployment.</p></div>
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-purple transition-colors"><div class="w-14 h-14 bg-gray-800 text-purple rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="headphones" class="w-7 h-7"></i></div><h3 class="text-xl font-bold mb-3">24/7 Support</h3><p class="text-sm text-gray-400">Our support team is always awake.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- CASE STUDIES -->
+        <!-- CASE STUDIES (RESTORED) -->
         <section id="case-studies" class="py-32 bg-surface">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-display font-bold">Proven <span class="text-purple">Results</span></h2>
-                    <p class="text-gray-400 mt-2">Real businesses. Real ROI.</p>
-                </div>
+                <div class="text-center mb-16"><h2 class="text-4xl font-display font-bold">Proven <span class="text-purple">Results</span></h2><p class="text-gray-400 mt-2">Real businesses. Real ROI.</p></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Cards -->
                     <div onclick="openCase(0)" class="group cursor-pointer relative aspect-[4/3] overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end"><span class="text-neon text-xs font-bold uppercase mb-1">E-Commerce</span><h3 class="text-2xl font-bold text-white">Fashion Brand Scale</h3><p class="text-sm text-gray-300 mt-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">View Results →</p></div></div>
                     <div onclick="openCase(1)" class="group cursor-pointer relative aspect-[4/3] overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end"><span class="text-neon text-xs font-bold uppercase mb-1">Real Estate</span><h3 class="text-2xl font-bold text-white">Lead Gen Automation</h3></div></div>
                     <div onclick="openCase(2)" class="group cursor-pointer relative aspect-[4/3] overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90 p-6 flex flex-col justify-end"><span class="text-neon text-xs font-bold uppercase mb-1">SaaS / Tech</span><h3 class="text-2xl font-bold text-white">SEO Traffic Growth</h3></div></div>
@@ -371,46 +323,85 @@
             </div>
         </section>
 
-        <!-- TESTIMONIALS -->
-        <section class="py-24 bg-void border-t border-white/5">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-12">Client Words</h2>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 rounded-2xl"><div class="text-neon mb-2">★★★★★</div><p class="text-sm text-gray-400 mb-4">"mbclicksoft transformed our manual process into a sleek automated system. We saved 40 hours/week."</p><div class="font-bold text-white">Sarah Jenkins</div><div class="text-xs text-gray-500">CEO, FashionNova</div></div>
-                    <div class="glass-panel p-6 rounded-2xl"><div class="text-neon mb-2">★★★★★</div><p class="text-sm text-gray-400 mb-4">"The website is insanely fast, and the SEO results came in just 2 months. Incredible work."</p><div class="font-bold text-white">Mark Roberts</div><div class="text-xs text-gray-500">Founder, TechFlow</div></div>
-                    <div class="glass-panel p-6 rounded-2xl"><div class="text-neon mb-2">★★★★★</div><p class="text-sm text-gray-400 mb-4">"Best agency for ad creatives. Their motion graphics team is top tier."</p><div class="font-bold text-white">Elena R.</div><div class="text-xs text-gray-500">CMO, EatWell</div></div>
+        <!-- TESTIMONIALS (NEW DUAL MARQUEE) -->
+        <section class="py-24 bg-gradient-to-b from-void to-surface border-t border-white/5 overflow-hidden relative">
+            <div class="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-void to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-void to-transparent z-10 pointer-events-none"></div>
+            <div class="container mx-auto px-6 mb-16 text-center relative z-20">
+                <h2 class="text-4xl font-display font-bold mb-4">Client <span class="text-neon">Success</span> Stories</h2>
+                <p class="text-gray-400">Real results from partners who trusted our vision.</p>
+            </div>
+            <div class="space-y-8">
+                <!-- Row 1: Left Scroll -->
+                <div class="flex gap-6 animate-marquee w-max hover:pause">
+                    <!-- Clients 1-3 & Duplicate -->
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-purple/40 transition-colors relative">
+                        <div class="absolute top-6 right-6 text-purple-500 opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">"Our New Website is a Game-Changer! They didn’t just build us a website, they created a powerful online platform that truly represents our brand. The design is sleek, the functionality is flawless, and it’s already significantly boosted our lead generation."</p>
+                        <div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">CF</div><div><h4 class="font-bold text-white">Cristina Franklin</h4><p class="text-xs text-gray-500">Founder, fxbookmarket</p></div></div>
+                    </div>
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-neon/40 transition-colors relative">
+                        <div class="absolute top-6 right-6 text-neon opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">"Our business has experienced great marketing success thanks to their wonderful and passionate work. Their video editing team and marketing team are both fantastic, providing creative video content ideas that really helped us engage our audience."</p>
+                        <div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-neon to-green-500 rounded-full flex items-center justify-center text-black font-bold text-lg">RH</div><div><h4 class="font-bold text-white">Rabeul Hasan</h4><p class="text-xs text-gray-500">CEO, thestation</p></div></div>
+                    </div>
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-purple/40 transition-colors relative">
+                        <div class="absolute top-6 right-6 text-purple-500 opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">"Highly recommended-Mastering YouTube & Social Presence for Real Leads! We needed to seriously boost our social presence, especially on YouTube. The team absolutely delivered! They meticulously optimized our YouTube channel with expert SEO."</p>
+                        <div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg">GB</div><div><h4 class="font-bold text-white">Gregory Brown</h4><p class="text-xs text-gray-500">a2trader</p></div></div>
+                    </div>
+                    <!-- Duplicates for infinite scroll -->
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-purple/40 transition-colors relative"><div class="absolute top-6 right-6 text-purple-500 opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div><p class="text-gray-300 text-sm leading-relaxed mb-6">"Our New Website is a Game-Changer! The design is sleek, the functionality is flawless, and it’s already significantly boosted our lead generation."</p><div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">CF</div><div><h4 class="font-bold text-white">Cristina Franklin</h4><p class="text-xs text-gray-500">Founder, fxbookmarket</p></div></div></div>
+                </div>
+
+                <!-- Row 2: Right Scroll -->
+                <div class="flex gap-6 animate-marquee-reverse w-max hover:pause">
+                    <!-- Clients 4-6 & Duplicate -->
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-neon/40 transition-colors relative">
+                        <div class="absolute top-6 right-6 text-neon opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">"Unprecedented Growth Thanks to Their Marketing Strategy! We partnered with MBCLICKSOFT for our digital marketing, and the results have been phenomenal. Their SEO strategies and targeted ad campaigns led to a 150% increase in website traffic."</p>
+                        <div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg">IS</div><div><h4 class="font-bold text-white">Ibrahim Al Sanad</h4><p class="text-xs text-gray-500">Founder, textsyncpro</p></div></div>
+                    </div>
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-purple/40 transition-colors relative">
+                        <div class="absolute top-6 right-6 text-purple-500 opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">"Video Content That Converts – Truly Impressed! The team revolutionized our approach to video content. They didn’t just produce beautiful visuals; they developed a strategic video marketing plan that perfectly aligned with our goals."</p>
+                        <div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">PS</div><div><h4 class="font-bold text-white">piratesofthesundarban</h4><p class="text-xs text-gray-500">Organizer</p></div></div>
+                    </div>
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-neon/40 transition-colors relative">
+                        <div class="absolute top-6 right-6 text-neon opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">"From Zero Results to Raving Success on Facebook Ads! Before, our Facebook ad campaigns were just burning budget. After partnering with the team, everything changed. They deep-dived into our ad analytics and completely revitalized our ad creatives."</p>
+                        <div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center text-white font-bold text-lg">MJ</div><div><h4 class="font-bold text-white">mr.Jhony</h4><p class="text-xs text-gray-500">CMO, Edusus</p></div></div>
+                    </div>
+                    <!-- Duplicate -->
+                    <div class="w-[450px] bg-[#0f0f12] border border-white/5 p-8 rounded-2xl shrink-0 group hover:border-neon/40 transition-colors relative"><div class="absolute top-6 right-6 text-neon opacity-20"><i data-lucide="quote" class="w-8 h-8"></i></div><p class="text-gray-300 text-sm leading-relaxed mb-6">"Unprecedented Growth! We partnered with MBCLICKSOFT for our digital marketing, and the results have been phenomenal. Their SEO strategies led to a 150% increase in website traffic."</p><div class="flex items-center gap-4"><div class="w-12 h-12 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg">IS</div><div><h4 class="font-bold text-white">Ibrahim Al Sanad</h4><p class="text-xs text-gray-500">Founder</p></div></div></div>
                 </div>
             </div>
         </section>
 
-        <!-- FREE AUDIT (UPDATED FORM WITH PHONE/EMAIL) -->
+        <!-- FREE AUDIT -->
         <section class="py-24 relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-r from-purple/20 to-neon/10"></div>
             <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
                 <div>
                     <h2 class="text-4xl font-display font-bold mb-6">Get Your <span class="text-neon">Free Audit</span></h2>
                     <p class="text-gray-300 mb-6">Not sure why your ads aren't converting? Let our experts analyze your digital footprint.</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex gap-2"><i data-lucide="check" class="text-neon w-5 h-5"></i> Full Website Speed Test</li>
-                        <li class="flex gap-2"><i data-lucide="check" class="text-neon w-5 h-5"></i> SEO Gap Analysis</li>
-                        <li class="flex gap-2"><i data-lucide="check" class="text-neon w-5 h-5"></i> Ad Account Audit</li>
-                    </ul>
+                    <ul class="space-y-3 mb-8"><li class="flex gap-2"><i data-lucide="check" class="text-neon w-5 h-5"></i> Full Website Speed Test</li><li class="flex gap-2"><i data-lucide="check" class="text-neon w-5 h-5"></i> SEO Gap Analysis</li><li class="flex gap-2"><i data-lucide="check" class="text-neon w-5 h-5"></i> Ad Account Audit</li></ul>
                 </div>
                 <div class="bg-surface border border-white/10 p-8 rounded-3xl shadow-2xl">
                     <form onsubmit="handleFormSubmit(event, 'auditForm')" class="space-y-4">
                         <input type="hidden" name="access_key" value="b11ef263-105d-478d-8940-fe03faa00ed2">
-                        <input type="text" name="name" placeholder="Business Name" required class="w-full bg-void border border-gray-700 rounded-lg p-3 text-white focus:border-neon outline-none">
-                        <input type="email" name="email" placeholder="Email Address" required class="w-full bg-void border border-gray-700 rounded-lg p-3 text-white focus:border-neon outline-none">
-                        <input type="tel" name="phone" placeholder="Phone Number" required class="w-full bg-void border border-gray-700 rounded-lg p-3 text-white focus:border-neon outline-none">
-                        <input type="text" name="website" placeholder="Website URL" class="w-full bg-void border border-gray-700 rounded-lg p-3 text-white focus:border-neon outline-none">
-                        <textarea name="message" rows="3" placeholder="Current Challenge" class="w-full bg-void border border-gray-700 rounded-lg p-3 text-white focus:border-neon outline-none"></textarea>
+                        <input type="text" name="name" placeholder="Business Name" required class="form-input">
+                        <input type="email" name="email" placeholder="Email Address" required class="form-input">
+                        <div class="flex"><select id="auditCountry" class="bg-white/5 text-gray-400 px-2 py-3 rounded-l-md border border-r-0 border-white/10 text-xs w-20 focus:outline-none" onchange="updatePhoneCodeAudit(this)"></select><input type="tel" name="phone" placeholder="Phone Number" required class="form-input rounded-l-none"></div>
+                        <input type="text" name="website" placeholder="Website URL" class="form-input">
+                        <textarea name="message" rows="3" placeholder="Current Challenge" class="form-input"></textarea>
                         <button class="w-full bg-neon text-black font-bold py-3 rounded-lg hover:bg-white transition-colors">Request Free Audit</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- UPDATED FAQ (8 POINTS) -->
+        <!-- FAQ -->
         <section class="py-24 bg-surface">
             <div class="container mx-auto px-6 max-w-3xl">
                 <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
@@ -427,17 +418,15 @@
             </div>
         </section>
 
-        <!-- ABOUT US -->
+        <!-- ABOUT & PARTNERS -->
         <section id="about" class="py-24 bg-void">
             <div class="container mx-auto px-6 text-center max-w-4xl">
                 <h2 class="text-4xl font-display font-bold mb-6">About <span class="text-purple">mbclicksoft</span></h2>
-                <p class="text-xl text-gray-300 leading-relaxed">
+                <p class="text-xl text-gray-300 leading-relaxed mb-12">
                     mbclicksoft is not just an agency; we are a growth partner. Founded in 2023, we saw a gap between "good design" and "profitable marketing". We bridge that gap using AI and data. We are obsessed with results, transparency, and speed.
                 </p>
-                <div class="mt-10 flex justify-center gap-8 opacity-50 grayscale hover:grayscale-0 transition-all">
-                   <span class="text-2xl font-bold">Google Partner</span>
-                   <span class="text-2xl font-bold">Meta Ads</span>
-                   <span class="text-2xl font-bold">Shopify Experts</span>
+                <div class="flex flex-wrap justify-center gap-8 md:gap-12 opacity-60">
+                    <span class="text-lg md:text-2xl font-display font-bold text-gray-400 hover:text-white transition-colors">GOOGLE PARTNER</span><span class="text-lg md:text-2xl font-display font-bold text-gray-400 hover:text-white transition-colors">META ADS</span><span class="text-lg md:text-2xl font-display font-bold text-gray-400 hover:text-white transition-colors">SHOPIFY EXPERTS</span><span class="text-lg md:text-2xl font-display font-bold text-gray-400 hover:text-white transition-colors">WORDPRESS VIP</span><span class="text-lg md:text-2xl font-display font-bold text-gray-400 hover:text-white transition-colors">OPENAI</span>
                 </div>
             </div>
         </section>
@@ -451,6 +440,15 @@
                     <article class="cursor-pointer group" onclick="openBlog(2)"><div class="aspect-video bg-gray-800 rounded-xl overflow-hidden mb-4"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform"></div><h3 class="font-bold text-lg group-hover:text-neon transition-colors">Server Side Tracking Explained</h3></article>
                     <article class="cursor-pointer group" onclick="openBlog(3)"><div class="aspect-video bg-gray-800 rounded-xl overflow-hidden mb-4"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform"></div><h3 class="font-bold text-lg group-hover:text-neon transition-colors">SEO Strategies for 2025</h3></article>
                 </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="py-20 bg-gradient-to-r from-purple/20 to-indigo-900/20 text-center border-t border-white/5">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-display font-bold mb-6">Ready to Scale Your Business?</h2>
+                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">Join 150+ companies using our AI systems to dominate their market.</p>
+                <button onclick="openContact()" class="px-10 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-neon transition-all shadow-[0_0_25px_rgba(255,255,255,0.3)]">Start Your Project Now</button>
             </div>
         </section>
 
@@ -470,67 +468,137 @@
 
     </main>
 
-    <!-- ==================== BLOG PAGE (SPA VIEW) ==================== -->
+    <!-- BLOG PAGE VIEW -->
     <section id="blog-view" class="hidden-view fixed inset-0 z-[100] bg-void overflow-y-auto">
         <div class="max-w-4xl mx-auto px-6 py-12">
             <button onclick="closeBlog()" class="fixed top-6 right-6 z-50 bg-white text-black px-4 py-2 rounded-full font-bold hover:bg-neon transition-colors">Close X</button>
-            <div id="blog-content-injection"></div>
+            <div id="blog-content-injection" class="prose max-w-none pt-12 pb-24"></div>
         </div>
     </section>
 
-    <!-- ==================== MODALS ==================== -->
+    <!-- MODALS -->
 
-    <!-- CONTACT MODAL -->
+    <!-- CONTACT MODAL (SMART FORM + AUTO CODE) -->
     <div id="contactModal" class="fixed inset-0 z-[200] modal flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeModal('contactModal')"></div>
-        <div class="modal-content relative bg-surface border border-white/20 rounded-2xl p-8 max-w-lg w-full">
-            <h3 class="text-2xl font-bold mb-4">Start Your Project</h3>
-            <form onsubmit="handleFormSubmit(event, 'contactModal')" class="space-y-4">
-                <input type="hidden" name="access_key" value="b11ef263-105d-478d-8940-fe03faa00ed2">
-                <input type="text" name="name" placeholder="Full Name" required class="w-full bg-void border border-gray-700 rounded p-3 text-white focus:border-neon outline-none">
-                <input type="tel" name="phone" placeholder="Phone Number" required class="w-full bg-void border border-gray-700 rounded p-3 text-white focus:border-neon outline-none">
-                <input type="text" name="country" placeholder="Country" required class="w-full bg-void border border-gray-700 rounded p-3 text-white focus:border-neon outline-none">
-                <textarea name="message" rows="4" placeholder="Message..." class="w-full bg-void border border-gray-700 rounded p-3 text-white focus:border-neon outline-none"></textarea>
-                <button class="w-full bg-neon text-black font-bold py-3 rounded hover:bg-white transition-colors">Send</button>
-            </form>
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeModal('contactModal')"></div>
+        <div class="modal-content relative bg-[#0a0a0c] border border-purple/30 rounded-3xl w-full max-w-xl shadow-[0_0_50px_rgba(124,58,237,0.15)] flex flex-col my-4 overflow-hidden">
+            <div class="p-6 border-b border-white/5 bg-[#0a0a0c] z-10 flex justify-between items-center">
+                <div><h2 class="text-2xl font-display font-bold text-white">Let's Talk</h2><p class="text-gray-400 text-xs">We'll get back to you within 24 hours.</p></div>
+                <button onclick="closeModal('contactModal')" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto custom-scrollbar" style="max-height: 80vh;">
+                <form onsubmit="handleFormSubmit(event, 'contactModal')" class="space-y-4">
+                    <input type="hidden" name="access_key" value="b11ef263-105d-478d-8940-fe03faa00ed2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="form-label text-purple-400">NAME</label><input type="text" name="name" placeholder="John Doe" required class="form-input focus:ring-1 focus:ring-purple-500/50"></div>
+                        <div><label class="form-label text-purple-400">EMAIL</label><input type="email" name="email" placeholder="john@example.com" required class="form-input focus:ring-1 focus:ring-purple-500/50"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="form-label text-purple-400">COUNTRY</label>
+                            <select id="countrySelect" name="country" class="form-input focus:ring-1 focus:ring-purple-500/50" onchange="updatePhoneCode(this, 'phoneCodeDisplay')">
+                                <!-- JS Populated -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label text-purple-400">PHONE</label>
+                            <div class="flex">
+                                <div id="phoneCodeDisplay" class="bg-white/5 text-gray-400 px-3 py-2 rounded-l-md border border-r-0 border-white/10 flex items-center text-xs font-mono w-14 justify-center">+__</div>
+                                <input type="tel" name="phone" placeholder="123 456 7890" class="form-input rounded-l-none focus:ring-1 focus:ring-purple-500/50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="form-label text-purple-400">SERVICE</label><select name="service_type" class="form-input focus:ring-1 focus:ring-purple-500/50"><option value="SMM">Social Media Marketing</option><option value="SEO">SEO & GEO</option><option value="SEM">Google Ads</option><option value="Content">Content Marketing</option><option value="WebDev">Web Development</option><option value="Email">Email Marketing</option><option value="Branding">Branding</option><option value="Video">Video & Motion</option><option value="Analytics">Analytics</option><option value="Chatbot">AI Chatbot</option></select></div>
+                        <div><label class="form-label text-purple-400">WEBSITE</label><input type="url" name="website" placeholder="yourbrand.com" class="form-input focus:ring-1 focus:ring-purple-500/50"></div>
+                    </div>
+                    <div><label class="form-label text-purple-400">MESSAGE</label><textarea name="message" rows="3" placeholder="Tell us about your vision..." class="form-input focus:ring-1 focus:ring-purple-500/50"></textarea></div>
+                    <!-- Colorful Button -->
+                    <button class="w-full bg-gradient-to-r from-purple-600 via-violet-500 to-cyanBrand hover:brightness-125 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_25px_rgba(124,58,237,0.6)] hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] hover:scale-[1.02] transform duration-200">
+                        Send Request
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- THANK YOU MODAL (WITH VOICE) -->
+    <!-- OTHER MODALS -->
     <div id="thankYouModal" class="fixed inset-0 z-[250] modal flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-md"></div>
         <div class="modal-content relative bg-[#0f0f12] border border-neon rounded-2xl p-10 max-w-md w-full text-center shadow-[0_0_50px_rgba(204,255,0,0.3)]">
-            <div class="w-20 h-20 bg-neon/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i data-lucide="check-circle" class="w-10 h-10 text-neon"></i>
-            </div>
+            <div class="w-20 h-20 bg-neon/10 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check-circle" class="w-10 h-10 text-neon"></i></div>
             <h3 class="text-3xl font-display font-bold text-white mb-2">Thank You!</h3>
-            <p class="text-gray-400 mb-8">We have received your request. Our team will contact you shortly.</p>
+            <p class="text-gray-400 mb-8">We have received your request.</p>
             <button onclick="closeModal('thankYouModal')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-neon transition-colors">Close</button>
         </div>
     </div>
 
-    <!-- PACKAGE MODAL -->
     <div id="packageModal" class="fixed inset-0 z-[200] modal flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeModal('packageModal')"></div>
-        <div class="modal-content relative bg-[#0F1115] border border-neon rounded-2xl p-8 max-w-lg w-full shadow-[0_0_50px_rgba(204,255,0,0.2)]">
-            <button onclick="closeModal('packageModal')" class="absolute top-4 right-4 text-white hover:text-red-500"><i data-lucide="x"></i></button>
-            <div class="text-center mb-6">
-                <span class="bg-neon text-black font-bold text-xs px-2 py-1 rounded">OFFER</span>
-                <h3 class="text-3xl font-bold text-white mt-2">Ultimate Setup</h3>
-                <div class="text-4xl font-black text-neon mt-2">৳24,000</div>
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeModal('packageModal')"></div>
+        <div class="modal-content relative bg-[#050507] border border-neon/30 rounded-3xl w-full max-w-3xl shadow-[0_0_50px_rgba(124,58,237,0.2)] flex flex-col md:flex-row overflow-hidden max-h-[90vh]">
+            <button onclick="closeModal('packageModal')" class="absolute top-4 right-4 z-50 bg-[#1A1A1E] text-gray-400 hover:text-white p-2 rounded-full"><i data-lucide="x"></i></button>
+            <div class="w-full md:w-5/12 bg-[#0a0a0c] p-8 flex flex-col justify-between border-r border-gray-800 relative overflow-hidden">
+                <div class="absolute top-[-50px] left-[-50px] w-40 h-40 bg-purple-600 blur-[80px] opacity-30"></div>
+                
+                <div>
+                    <!-- TIMER -->
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+                        <span class="text-red-400 text-xs font-bold uppercase tracking-wide animate-pulse">Hurry! Ends in:</span>
+                        <span id="countdown" class="font-mono text-white font-bold text-sm">72:00:00</span>
+                    </div>
+
+                    <span class="bg-gradient-to-r from-neon to-purple-400 text-transparent bg-clip-text font-black tracking-widest text-[12px] uppercase mb-1 block">EXCLUSIVE OFFER</span>
+                    <h2 class="text-3xl font-display font-bold text-white leading-tight mb-6">Ultimate<br>Setup</h2>
+                    
+                    <div class="mb-2">
+                        <span id="pkg-price" class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon via-white to-purple-500 drop-shadow-[0_0_10px_rgba(204,255,0,0.5)]">$200</span>
+                        <span id="pkg-old-price" class="block text-gray-500 line-through text-sm font-bold mt-1">$450</span>
+                    </div>
+                </div>
+                
+                <!-- WHATSAPP -->
+                <a href="https://wa.me/8801642744475?text=I'm interested in the Ultimate Setup Package" target="_blank" class="w-full bg-gradient-to-r from-[#22c55e] to-emerald-600 hover:brightness-110 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] mt-4">
+                    <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i> Order via WhatsApp
+                </a>
+
+                <!-- SHORTCUT EMAIL -->
+                <div id="intlEmailContainer" class="hidden mt-4 border-t border-white/10 pt-4">
+                    <p class="text-[10px] text-gray-400 mb-2 text-center">Or Claim via Email:</p>
+                    <div class="flex gap-2">
+                        <input type="email" id="pkgEmailInput" placeholder="Your Email" class="bg-white/5 border border-white/10 rounded text-xs px-2 py-2 w-full text-white focus:border-neon outline-none">
+                        <button onclick="sendPackageEmail()" class="bg-purple-600 text-white text-xs font-bold px-3 rounded hover:bg-purple-500">Claim</button>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-[10px] text-gray-500 italic text-center">* Best for E-commerce</div>
             </div>
-            <ul class="space-y-3 mb-6 text-sm text-gray-300">
-                <li class="flex gap-2"><i data-lucide="check" class="text-neon w-4 h-4"></i> WordPress Website Building</li>
-                <li class="flex gap-2"><i data-lucide="check" class="text-neon w-4 h-4"></i> FB Pixel & Conversion API</li>
-                <li class="flex gap-2"><i data-lucide="check" class="text-neon w-4 h-4"></i> GTM & Server Side Tracking</li>
-                <li class="flex gap-2"><i data-lucide="check" class="text-neon w-4 h-4"></i> GA4 Setup</li>
-                <li class="flex gap-2 text-white font-bold"><i data-lucide="gift" class="text-purple w-4 h-4"></i> Bonus: Video Editing + Basic SEO</li>
-            </ul>
-            <button onclick="closeModal('packageModal'); openContact();" class="w-full bg-white text-black font-bold py-3 rounded hover:bg-neon transition-colors">Get Offer</button>
+
+            <!-- RIGHT SIDE -->
+            <div class="w-full md:w-7/12 p-8 bg-[#0F1115] relative">
+                <h3 class="text-lg font-bold text-white mb-5">What's Included?</h3>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-neon w-4 h-4 mt-0.5"></i> Full Website Building (WordPress)</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-neon w-4 h-4 mt-0.5"></i> Facebook Pixel & Conversion API</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-neon w-4 h-4 mt-0.5"></i> GTM (Google Tag Manager) Setup</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-neon w-4 h-4 mt-0.5"></i> Server Side Tracking (First Party Data)</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check" class="text-neon w-4 h-4 mt-0.5"></i> GA4 (Google Analytics 4) Setup</li>
+                    <li class="flex items-start gap-3 text-purple-400 font-bold"><i data-lucide="zap" class="w-4 h-4 mt-0.5"></i> Custom Event Setup</li>
+                </ul>
+                <div class="mt-4 text-[10px] text-gray-500 italic">* Domain & Hosting provided by client</div>
+                
+                <div class="mt-4 bg-gradient-to-br from-gray-900 to-purple-900/20 p-4 rounded-xl border border-neon/30 relative shadow-[0_0_15px_rgba(124,58,237,0.1)]">
+                    <div class="flex items-center gap-2 text-neon font-bold mb-3 text-xs tracking-wide uppercase"><i data-lucide="gift" class="w-3 h-3"></i> Free Bonuses</div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-black/50 text-white px-2 py-1 rounded text-[10px] font-bold border border-white/10 hover:border-neon transition-colors">1 Video Editing</span>
+                        <span class="bg-black/50 text-white px-2 py-1 rounded text-[10px] font-bold border border-white/10 hover:border-neon transition-colors">Basic SEO</span>
+                        <span class="bg-black/50 text-white px-2 py-1 rounded text-[10px] font-bold border border-white/10 hover:border-neon transition-colors">Content Posting</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- EBOOK MODAL -->
     <div id="ebookModal" class="fixed inset-0 z-[200] modal flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeModal('ebookModal')"></div>
         <div class="modal-content relative bg-surface border border-purple rounded-2xl p-8 max-w-md w-full text-center">
@@ -544,7 +612,6 @@
         </div>
     </div>
 
-    <!-- CASE STUDY MODAL -->
     <div id="caseModal" class="fixed inset-0 z-[200] modal flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeModal('caseModal')"></div>
         <div class="modal-content relative bg-surface border border-gray-700 rounded-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row h-[80vh]">
@@ -562,70 +629,143 @@
         lucide.createIcons();
         AOS.init({ duration: 800, once: true });
 
-        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function openContact() { openModal('contactModal'); }
+        // COUNTRIES & CODES
+        const countryData = [
+            {n:"Afghanistan",c:"+93"},{n:"Albania",c:"+355"},{n:"Algeria",c:"+213"},{n:"Argentina",c:"+54"},{n:"Australia",c:"+61"},
+            {n:"Austria",c:"+43"},{n:"Bahrain",c:"+973"},{n:"Bangladesh",c:"+880"},{n:"Belgium",c:"+32"},{n:"Brazil",c:"+55"},
+            {n:"Canada",c:"+1"},{n:"China",c:"+86"},{n:"Denmark",c:"+45"},{n:"Egypt",c:"+20"},{n:"Finland",c:"+358"},
+            {n:"France",c:"+33"},{n:"Germany",c:"+49"},{n:"Greece",c:"+30"},{n:"Hong Kong",c:"+852"},{n:"India",c:"+91"},
+            {n:"Indonesia",c:"+62"},{n:"Iran",c:"+98"},{n:"Iraq",c:"+964"},{n:"Ireland",c:"+353"},{n:"Italy",c:"+39"},
+            {n:"Japan",c:"+81"},{n:"Kuwait",c:"+965"},{n:"Malaysia",c:"+60"},{n:"Mexico",c:"+52"},{n:"Netherlands",c:"+31"},
+            {n:"New Zealand",c:"+64"},{n:"Nigeria",c:"+234"},{n:"Norway",c:"+47"},{n:"Oman",c:"+968"},{n:"Pakistan",c:"+92"},
+            {n:"Philippines",c:"+63"},{n:"Poland",c:"+48"},{n:"Portugal",c:"+351"},{n:"Qatar",c:"+974"},{n:"Romania",c:"+40"},
+            {n:"Russia",c:"+7"},{n:"Saudi Arabia",c:"+966"},{n:"Singapore",c:"+65"},{n:"South Africa",c:"+27"},{n:"South Korea",c:"+82"},
+            {n:"Spain",c:"+34"},{n:"Sri Lanka",c:"+94"},{n:"Sweden",c:"+46"},{n:"Switzerland",c:"+41"},{n:"Taiwan",c:"+886"},
+            {n:"Thailand",c:"+66"},{n:"Turkey",c:"+90"},{n:"UAE",c:"+971"},{n:"UK",c:"+44"},{n:"USA",c:"+1"},{n:"Vietnam",c:"+84"}
+        ];
 
-        // FORM SUBMIT HANDLER (Web3Forms + Voice)
+        const selects = document.querySelectorAll('#countrySelect, #auditCountry');
+        selects.forEach(sel => {
+            countryData.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.c;
+                opt.text = c.n;
+                sel.appendChild(opt);
+            });
+        });
+
+        function updatePhoneCode(select, displayId) {
+            document.getElementById(displayId).innerText = select.value;
+        }
+        function updatePhoneCodeAudit(select) { /* Placeholder */ }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+            if(id === 'contactModal') history.pushState(null, null, ' '); 
+        }
+        function openContact() { openModal('contactModal'); history.pushState({}, '', '#get-quote'); }
+        window.addEventListener('load', () => { if(window.location.hash === '#get-quote') openContact(); });
+
+        async function updatePackagePrice() {
+            const priceEl = document.getElementById('pkg-price');
+            const oldPriceEl = document.getElementById('pkg-old-price');
+            const emailContainer = document.getElementById('intlEmailContainer');
+            let isBD = false;
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                if(response.ok) {
+                    const data = await response.json();
+                    if(data.country_code === 'BD' || data.country_name === 'Bangladesh') isBD = true;
+                } else throw new Error('Primary failed');
+            } catch (err) {
+                try {
+                    const backup = await fetch('https://ipwho.is/');
+                    const data = await backup.json();
+                    if(data.country_code === 'BD') isBD = true;
+                } catch (e) { console.error('Geo failed'); }
+            }
+            if (isBD) { 
+                priceEl.innerText = '৳24,000'; 
+                oldPriceEl.innerText = '৳45,000';
+                emailContainer.classList.add('hidden'); 
+            } else { 
+                priceEl.innerText = '$200'; 
+                oldPriceEl.innerText = '$450';
+                emailContainer.classList.remove('hidden'); 
+            }
+        }
+        updatePackagePrice();
+
+        // TIMER
+        function startCountdown() {
+            let time = 72 * 3600; // 72 Hours
+            const el = document.getElementById('countdown');
+            setInterval(() => {
+                const h = Math.floor(time / 3600);
+                const m = Math.floor((time % 3600) / 60);
+                const s = Math.floor(time % 60);
+                el.innerText = `${h}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+                if(time > 0) time--;
+            }, 1000);
+        }
+        startCountdown();
+
+        // PACKAGE EMAIL SHORTCUT
+        async function sendPackageEmail() {
+            const email = document.getElementById('pkgEmailInput').value;
+            if(!email) { alert("Please enter email"); return; }
+            const formData = new FormData();
+            formData.append('access_key', 'b11ef263-105d-478d-8940-fe03faa00ed2');
+            formData.append('email', email);
+            formData.append('subject', 'Package Inquiry: Ultimate Setup ($200)');
+            formData.append('message', 'Client wants to claim the Ultimate Setup Package.');
+            try {
+                await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+                alert("Request Sent! check your email.");
+                closeModal('packageModal');
+            } catch(e) { alert("Error sending."); }
+        }
+
         async function handleFormSubmit(event, modalId) {
             event.preventDefault();
             const form = event.target;
             const btn = form.querySelector('button');
             const originalText = btn.innerText;
             btn.innerText = "Sending...";
-            
             const formData = new FormData(form);
-
+            if(modalId === 'contactModal') {
+                const code = document.getElementById('phoneCodeDisplay').innerText;
+                const num = form.phone.value;
+                formData.set('phone', code + " " + num);
+            }
             try {
-                const response = await fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    body: formData
-                });
+                const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
                 const data = await response.json();
-
                 if (data.success) {
-                    // Close the form modal (if it was a modal)
-                    if (modalId && modalId !== 'auditForm') {
-                        closeModal(modalId);
-                    }
-                    
-                    // Show Thank You Modal
+                    if (modalId && modalId !== 'auditForm') closeModal(modalId);
                     openModal('thankYouModal');
-                    
-                    // Play Female Voice (Replaced with MP3 playback)
                     playThankYouVoice();
-                    
-                    // Reset Form
                     form.reset();
                     btn.innerText = originalText;
-                } else {
-                    alert("Something went wrong. Please try again.");
-                    btn.innerText = originalText;
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Connection error. Please try again.");
-                btn.innerText = originalText;
-            }
+                } else { alert("Error"); btn.innerText = originalText; }
+            } catch (error) { alert("Connection Error"); btn.innerText = originalText; }
         }
 
-        // AUDIO PLAYBACK (Using your file)
         function playThankYouVoice() {
-            // NOTE: You must name your audio file 'thankyou.mp3' and place it in the same folder
             const audio = new Audio('thankyou.mp3');
-            audio.play().catch(error => console.log("Audio play failed (user interaction required first):", error));
+            audio.play().catch(error => console.log("Audio play failed:", error));
         }
 
-        // VIDEO LOGIC
         function playVideo() {
             const container = document.getElementById('video-player');
             const overlay = document.getElementById('video-overlay');
-            const videoId = "y9n6JkEHH0k"; // Example Tech Intro
+            const videoId = "y9n6JkEHH0k"; 
             overlay.style.display = 'none';
             container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
 
-        // Ebook Logic
         document.getElementById('ebookForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
@@ -633,7 +773,7 @@
             btn.innerText = "Generating...";
             setTimeout(() => {
                 const link = document.createElement('a');
-                link.href = 'data:application/pdf;base64,JVBERi0xLjcKCjEgMCBvYmogPDwgL1R5cGUgL0NhdGFsb2cgL1BhZ2VzIDIgMCBSIH0+IGVuZG9iagoyIDAgb2JqIDw8IC9UeXBlIC9QYWdlcyAvS2lkcyBbIDMgMCBSIF0gL0NvdW50IDEgPj4gZW5kb2JqCjMgMCBvYmogPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1IDg0MiBdIC9Db250ZW50cyA0IDAgUiAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9FMSA1IDAgUiA+PiA+PiA+PiBlbmRvYmoKNCAwIG9iaiA8PCAvTGVuZ3RoIDQ0ID4+IHN0cmVhbQpCVAovRTEgMjQgVGYKNTAgNzUwIFRECihGb3IgRGVtbyBQdXJwb3NlIE9ubHkpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKNSAwIG9iaiA8PCAvVHlwZSAvRm9udCAvU3VidHlwZSAvVHlwZTEgL0Jhc2VGb250IC9IZWx2ZXRpY2EgPj4gZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxMCAwMDAwMCBuIAowMDAwMDAwMDYwIDAwMDAwIG4gCjAwMDAwMDAxMTcgMDAwMDAgbiAKMDAwMDAwMDI0NSAwMDAwMCBuIAowMDAwMDAwMzQwIDAwMDAwIG4gCnRyYWlsZXIgPDwgL1NpemUgNiAvUm9vdCAxIDAgUiA+PgpzdGFydHhyZWYKMzkwCiUlRU9GCg==';
+                link.href = 'data:application/pdf;base64,JVBERi0xLjcKCjEgMCBvYmogPDwgL1R5cGUgL0NhdGFsb2cgL1BhZ2VzIDIgMCBSIH0+IGVuZG9iagoyIDAgb2JqIDw8IC9UeXBlIC9QYWdlcyAvS2lkcyBbIDMgMCBSIF0gL0NvdW50IDEgPj4gZW5kb2JqCjMgMCBvYmogPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1IDg0MiBdIC9Db250ZW50cyA0IDAgUiAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9FMSA1IDAgUiA+PiA+PiA+PiBlbmRvYmoKNCAwIG9iaiA8PCAvTGVuZ3RoIDQ0ID4+IHN0cmVhbQpCVAovRTEgMjQgVGYKNTAgNzUwIFRECihmb3IgRGVtbyBQdXJwb3NlIE9ubHkpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKNSAwIG9iaiA8PCAvVHlwZSAvRm9udCAvU3VidHlwZSAvVHlwZTEgL0Jhc2VGb250IC9IZWx2ZXRpY2EgPj4gZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxMCAwMDAwMCBuIAowMDAwMDAwMDYwIDAwMDAwIG4gCjAwMDAwMDAxMTcgMDAwMDAgbiAKMDAwMDAwMDI0NSAwMDAwMCBuIAowMDAwMDAwMzQwIDAwMDAwIG4gCnRyYWlsZXIgPDwgL1NpemUgNiAvUm9vdCAxIDAgUiA+PgpzdGFydHhyZWYKMzkwCiUlRU9GCg==';
                 link.download = 'mbclicksoft_Guide.pdf';
                 link.click();
                 closeModal('ebookModal');
@@ -641,16 +781,36 @@
             }, 1000);
         });
 
-        // Case Studies Data
-        const cases = [
-            { cat: "E-Commerce", title: "Fashion Brand Scaling", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800", prob: "High CPA on Facebook Ads. Low Repeat Purchase Rate.", strat: "Implemented CAPI + Klaviyo Flows + Creative Testing Framework.", before: "ROAS: 1.2x | CPA: $25", after: "ROAS: 4.5x | CPA: $8", res: "300% Revenue Increase" },
-            { cat: "Real Estate", title: "Lead Automation", img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800", prob: "Agents missing calls. Slow lead follow-up.", strat: "Built AI SMS Bot + Calendar Integration.", before: "5 Meetings/Week", after: "35 Meetings/Week", res: "Zero Missed Leads" },
-            { cat: "SaaS", title: "Organic Traffic Growth", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", prob: "Zero organic presence. Dependent on paid ads.", strat: "Topic Clustering + Technical Audit + Backlinking.", before: "100 Visits/Mo", after: "15,000 Visits/Mo", res: "Ranked #1 for 20 Keywords" },
-            { cat: "Hospitality", title: "Viral Restaurant Launch", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", prob: "New location, no brand awareness.", strat: "Influencer Campaign + Local Geo-Ads + Video Motion.", before: "Empty Tables", after: "Fully Booked 2 Months", res: "Viral on TikTok" },
-            { cat: "Dental", title: "High Ticket Booking", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800", prob: "Low quality leads for implants.", strat: "Funnel Redesign + Qualifying Quiz + Google Ads.", before: "Conversion: 2%", after: "Conversion: 12%", res: "$50k Added Revenue/Mo" }
-        ];
+        const blogPosts = {
+            1: { title: "AI Support Agents: The End of Traditional Call Centers?", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200", content: `<h2>Introduction</h2><p>In the rapidly evolving landscape of customer service, a seismic shift is underway...</p>` },
+            2: { title: "The Ultimate Guide to Server Side Tracking in 2025", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200", content: `<h2>The Death of the Third-Party Cookie</h2><p>Digital marketing is facing its biggest challenge yet...</p>` },
+            3: { title: "SEO vs GEO: Ranking in the Age of AI", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200", content: `<h2>From SEO to GEO</h2><p>Search Engine Optimization (SEO) has ruled the web for two decades...</p>` }
+        };
 
+        function openBlog(id) {
+            const post = blogPosts[id];
+            document.getElementById('main-view').style.display = 'none';
+            const bv = document.getElementById('blog-view');
+            bv.style.display = 'block';
+            setTimeout(() => bv.style.opacity = '1', 10);
+            document.getElementById('blog-content-injection').innerHTML = `<span class="text-neon font-bold tracking-widest uppercase mb-4 block">Blog Article</span><h1 class="text-4xl md:text-5xl font-display font-bold mb-8 leading-tight text-white">${post.title}</h1><img src="${post.image}" class="w-full h-[400px] object-cover rounded-3xl mb-10 shadow-2xl"><div class="prose prose-lg prose-invert max-w-none text-gray-300">${post.content}</div>`;
+            window.scrollTo(0,0);
+        }
+        function closeBlog() {
+            const bv = document.getElementById('blog-view');
+            bv.style.opacity = '0';
+            setTimeout(() => { bv.style.display = 'none'; document.getElementById('main-view').style.display = 'block'; }, 400);
+        }
+        function showHome() { closeBlog(); }
+        
         function openCase(i) {
+            const cases = [
+                { cat: "E-Commerce", title: "Fashion Brand Scaling", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800", prob: "High CPA on Facebook Ads. Low Repeat Purchase Rate.", strat: "Implemented CAPI + Klaviyo Flows + Creative Testing Framework.", before: "ROAS: 1.2x | CPA: $25", after: "ROAS: 4.5x | CPA: $8", res: "300% Revenue Increase" },
+                { cat: "Real Estate", title: "Lead Automation", img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800", prob: "Agents missing calls. Slow lead follow-up.", strat: "Built AI SMS Bot + Calendar Integration.", before: "5 Meetings/Week", after: "35 Meetings/Week", res: "Zero Missed Leads" },
+                { cat: "SaaS", title: "Organic Traffic Growth", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", prob: "Zero organic presence. Dependent on paid ads.", strat: "Topic Clustering + Technical Audit + Backlinking.", before: "100 Visits/Mo", after: "15,000 Visits/Mo", res: "Ranked #1 for 20 Keywords" },
+                { cat: "Hospitality", title: "Viral Restaurant Launch", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", prob: "New location, no brand awareness.", strat: "Influencer Campaign + Local Geo-Ads + Video Motion.", before: "Empty Tables", after: "Fully Booked 2 Months", res: "Viral on TikTok" },
+                { cat: "Dental", title: "High Ticket Booking", img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800", prob: "Low quality leads for implants.", strat: "Funnel Redesign + Qualifying Quiz + Google Ads.", before: "Conversion: 2%", after: "Conversion: 12%", res: "$50k Added Revenue/Mo" }
+            ];
             const c = cases[i];
             document.getElementById('cs-img').src = c.img;
             document.getElementById('cs-cat').innerText = c.cat;
@@ -662,22 +822,6 @@
             document.getElementById('cs-res').innerText = c.res;
             openModal('caseModal');
         }
-
-        function openBlog(id) {
-            document.getElementById('main-view').style.display = 'none';
-            const bv = document.getElementById('blog-view');
-            bv.style.display = 'block';
-            setTimeout(() => bv.style.opacity = '1', 10);
-            const titles = {1: "AI Agents", 2: "Server Side Tracking", 3: "SEO 2025"};
-            document.getElementById('blog-content-injection').innerHTML = `<h1 class="text-4xl font-bold mb-4 text-neon">${titles[id]}</h1><p class="text-gray-300">Detailed article content would appear here...</p><div class="h-64 bg-gray-800 rounded mt-4 mb-4"></div><p class="text-gray-400">Lorem ipsum dolor sit amet...</p>`;
-            window.scrollTo(0,0);
-        }
-        function closeBlog() {
-            const bv = document.getElementById('blog-view');
-            bv.style.opacity = '0';
-            setTimeout(() => { bv.style.display = 'none'; document.getElementById('main-view').style.display = 'block'; }, 400);
-        }
-        function showHome() { closeBlog(); }
     </script>
 </body>
 </html>
